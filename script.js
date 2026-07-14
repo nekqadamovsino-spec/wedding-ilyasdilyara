@@ -1,5 +1,4 @@
 const target = new Date("2026-09-26T15:00:00+03:00");
-const music = document.getElementById("bgMusic");
 
 window.addEventListener("load", () => {
 
@@ -58,3 +57,42 @@ document.querySelectorAll(".gallery img").forEach(img =>
 document.querySelectorAll(".gallery img").forEach(img =>
   img.addEventListener("click", () => window.open(img.src, "_blank"))
 );
+// ===== МУЗЫКА =====
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicToggle");
+
+if (music && musicBtn) {
+
+    music.volume = 0.5;
+
+    function playMusic() {
+        music.play()
+            .then(() => {
+                musicBtn.classList.add("playing");
+            })
+            .catch(() => {});
+    }
+
+    // Пытаемся запустить автоматически
+    window.addEventListener("load", playMusic);
+
+    // Если браузер запретил — запустим после первого действия пользователя
+    ["click", "touchstart", "scroll"].forEach(evt => {
+        window.addEventListener(evt, () => {
+            if (music.paused) {
+                playMusic();
+            }
+        }, { once: true });
+    });
+
+    // Кнопка включить/выключить
+    musicBtn.addEventListener("click", () => {
+        if (music.paused) {
+            playMusic();
+        } else {
+            music.pause();
+            musicBtn.classList.remove("playing");
+        }
+    });
+
+}
