@@ -40,3 +40,16 @@ function sendRSVP(event){
 document.querySelectorAll(".gallery img").forEach(img =>
   img.addEventListener("click", () => window.open(img.src, "_blank"))
 );
+const music = document.getElementById("bgMusic");
+);
+const musicBtn = document.getElementById("musicToggle");
+
+musicBtn.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    musicBtn.classList.add("playing");
+  } else {
+    music.pause();
+    musicBtn.classList.remove("playing");
+  }
+});
