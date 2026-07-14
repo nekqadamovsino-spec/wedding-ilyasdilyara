@@ -1,4 +1,19 @@
 const target = new Date("2026-09-26T15:00:00+03:00");
+const music = document.getElementById("bgMusic");
+
+window.addEventListener("load", () => {
+
+    if (!music) return;
+
+    music.volume = 0.5;
+
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+    }
+
+});
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw4m40ZYUrF3kKV8ezHDUykKnHuCiSgzmNRZg0cGaEMQxeoUCSn_HjBTNBKpe-yHBNPfg/exec";
 
 function pad(n){ return String(n).padStart(2,"0"); }
@@ -58,3 +73,10 @@ if (music && musicBtn) {
     }
   });
 }
+["click","touchstart","scroll"].forEach(eventName => {
+    window.addEventListener(eventName, () => {
+        if (music && music.paused) {
+            music.play().catch(()=>{});
+        }
+    }, { once:true });
+});
