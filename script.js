@@ -58,25 +58,3 @@ document.querySelectorAll(".gallery img").forEach(img =>
 document.querySelectorAll(".gallery img").forEach(img =>
   img.addEventListener("click", () => window.open(img.src, "_blank"))
 );
-// ===== КНОПКА МУЗЫКИ =====
-const music = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicToggle");
-
-if (music && musicBtn) {
-  musicBtn.addEventListener("click", () => {
-    if (music.paused) {
-      music.play();
-      musicBtn.classList.add("playing");
-    } else {
-      music.pause();
-      musicBtn.classList.remove("playing");
-    }
-  });
-}
-["click","touchstart","scroll"].forEach(eventName => {
-    window.addEventListener(eventName, () => {
-        if (music && music.paused) {
-            music.play().catch(()=>{});
-        }
-    }, { once:true });
-});
